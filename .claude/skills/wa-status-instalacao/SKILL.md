@@ -1,6 +1,6 @@
 ---
 name: wa-status-instalacao
-description: Instala e configura do zero o WA Status (4 status por dia no WhatsApp via WAHA, com arte + jazz, gerados a partir do Documento-Chave do produto, com aprovação pelo WhatsApp). Faz uma entrevista curta, monta o .env local, cria o produto, implementa o sistema, testa só com o aprovador e agenda as rotinas. Use quando o usuário colar o link do repositório WA Status, pedir para instalar, configurar, implementar, "começar" ou "continuar a instalação", ou digitar /wa-status-instalacao.
+description: Instala e configura do zero o WA Status (4 status por dia no WhatsApp via WAHA, com arte + jazz, gerados a partir do Documento-Chave do produto, com aprovação pelo WhatsApp). Faz uma entrevista curta, monta o .env local, cria o produto, implementa o sistema, testa só com o aprovador e agenda as rotinas no próprio computador (sem GitHub) ou na nuvem do Claude Code. Use quando o usuário colar o link do repositório WA Status, pedir para instalar, configurar, implementar, "começar" ou "continuar a instalação", ou digitar /wa-status-instalacao.
 ---
 
 # Instalação guiada do WA Status
@@ -28,8 +28,9 @@ Mantenha `state/instalacao.json` com `{"etapa_concluida": N, "produto": "<id>", 
    ```bash
    python3 --version; git --version; ffmpeg -version | head -1; gh --version | head -1
    ```
-   - Python ≥ 3.11, git e ffmpeg são obrigatórios. macOS: `brew install python@3.12 git ffmpeg gh`. Ubuntu/Debian: `sudo apt-get install -y python3 python3-venv git ffmpeg gh`. Windows: recomende o WSL (Ubuntu).
-   - `gh` (GitHub CLI) facilita criar o repositório privado. Se faltar, dá para criar pelo site.
+   - Python ≥ 3.11, git e ffmpeg são obrigatórios (o git funciona sem conta em lugar nenhum). macOS: `brew install python@3.12 git ffmpeg gh`. Ubuntu/Debian: `sudo apt-get install -y python3 python3-venv git ffmpeg gh`. Windows: recomende o WSL (Ubuntu).
+   - `gh` (GitHub CLI) só é usado no modo nuvem.
+   - Confira também se o Claude Code roda no terminal: `claude --version` (necessário no modo local).
 
 ## Etapa 1 — Entrevista (faça as perguntas em blocos de 2 a 4, não todas de uma vez)
 Explique antes: "vou fazer algumas perguntas para configurar o seu produto; nada sai da sua máquina".
@@ -53,6 +54,11 @@ Explique antes: "vou fazer algumas perguntas para configurar o seu produto; nada
 12. Endereço do WAHA (ex.: `https://waha.seudominio.com.br`).
 13. Nome da **sessão** do WAHA conectada ao número que vai **publicar** os status.
 14. Número de WhatsApp de quem vai **aprovar** as prévias (precisa ser **diferente** do número que publica). Formato: `55` + DDD + número.
+
+**Bloco D — Onde vai rodar** (explique as duas opções e recomende a local para quem não tem GitHub)
+15. **No seu computador** (padrão, **não precisa de conta no GitHub**): o próprio computador dispara as publicações. Ele precisa estar **ligado** às 07:30, 12:00, 17:30, 20:30 e domingo às 19:00 (no Mac, pode estar com a tampa fechada na tomada; o sistema agenda o despertar).
+16. **Na nuvem do Claude Code**: roda com o computador desligado, mas exige uma **conta no GitHub** (repositório privado).
+Grave a escolha em `state/instalacao.json → modo` (`local` ou `nuvem`).
 
 Grave as respostas: crie `produtos/<id>/` copiando `produtos/_modelo/`, defina `id` (minúsculas, sem espaço) e `env_prefixo` (MAIÚSCULAS), e preencha `produto.yaml`, `brand.json → assinatura`, `cta.json`. **Não** grave endereço, sessão, número ou chave em arquivos versionados: eles vão só no `.env` (Etapa 2).
 
@@ -83,15 +89,17 @@ Esperado: `"status":"WORKING"`, um `engine`, `me.id` (número que publica) e `nu
 - **Marca:** se o logo não for dourado, proponha uma paleta com as cores do logo mantendo os nomes de token de `brand.json`, e garanta os contrastes do `docs/GUIA-VISUAL.md`. Status `proposto` até a Etapa 7.
 - **Fotos:** para cada foto, `exif_transpose`, medir a área protegida (rosto + tronco) em coordenadas 0–1 e registrar em `photos.json` como `proposto`.
 
-## Etapa 5 — Repositório privado do usuário
-As rotinas na nuvem precisam de um repositório **privado** do próprio usuário (o `state/` guarda prévias e o histórico).
+## Etapa 5 — Histórico e repositório
+**Modo local:** não precisa de GitHub. Desligue o vínculo com o repositório público (`git remote remove origin`) e mantenha o git só local (histórico das mudanças na própria máquina). Pule para a Etapa 6.
+
+**Modo nuvem:** as rotinas na nuvem precisam de um repositório **privado** do próprio usuário (o `state/` guarda prévias e o histórico).
 1. Desligue o vínculo com o repositório público: `git remote remove origin` (ou renomeie para `upstream`, só para buscar atualizações).
 2. Crie o privado: `gh repo create wa-status --private --source . --push` (ou pelo site: New repository → **Private** → sem README; depois `git remote add origin … && git push -u origin main`).
 3. Confirme que nenhum segredo subiu: `git ls-files | grep -E '^\.env$' | wc -l` deve dar 0.
 4. **Nunca** torne esse repositório público e não faça fork público: ele terá o conteúdo do usuário. (A licença também não permite redistribuir o projeto.)
 
 ## Etapa 6 — Implementação
-Recomende trocar para o modelo **Haiku** (`/model`): o plano foi escrito para ele. Execute `docs/TAREFAS.md` na ordem (1 … 7, 7b, 8 … 12, 12b, 13), **uma por resposta**: implementar → rodar os testes de aceite → mostrar o resultado → perguntar "sigo para a Tarefa N+1?". Ao final de cada tarefa, `git commit` e `git push`.
+Recomende trocar para o modelo **Haiku** (`/model`): o plano foi escrito para ele. Execute `docs/TAREFAS.md` na ordem (1 … 7, 7b, 8 … 12, 12b, 13), **uma por resposta**: implementar → rodar os testes de aceite → mostrar o resultado → perguntar "sigo para a Tarefa N+1?". Ao final de cada tarefa, `git commit` (e `git push` no modo nuvem).
 Referências de qualidade: `examples/lote-exemplo.json`, `examples/render/` e `docs/GUIA-VISUAL.md`.
 
 ## Etapa 7 — Aprovações iniciais (cada uma com resposta explícita do usuário)
@@ -103,8 +111,15 @@ Referências de qualidade: `examples/lote-exemplo.json`, `examples/render/` e `d
 ## Etapa 8 — Teste ponta a ponta (só o aprovador vê)
 Com `WASTATUS_TESTE=1`, Tarefa 12. Peça ao usuário para conferir no celular do aprovador: o vídeo tocou com música, a legenda não cobre o logo, o texto está legível, o link do CTA abre. Com engine WEBJS, siga `docs/INSTALACAO.md`, passo D4.
 
-## Etapa 9 — Nuvem e rotinas
-Siga `docs/INSTALACAO.md`, partes C e E:
+## Etapa 9 — Agendar as rotinas
+**Modo local:** siga `docs/INSTALACAO.md`, Parte E2:
+- macOS: crie os 5 arquivos `launchd` em `~/Library/LaunchAgents/` a partir do modelo da Parte E2 (caminho absoluto do projeto), carregue com `launchctl load`, e proponha o despertar automático (`sudo pmset repeat wakeorpoweron MTWRFSU 07:25:00`; o usuário digita a senha).
+- Linux/WSL: instale as 5 linhas no `crontab` (confira `date +%Z`).
+- Teste agora: `scripts/run-rotina.sh slot <N do próximo horário>` e mostre o fim de `logs/<hoje>.log`.
+- Rode o primeiro lote: `scripts/run-rotina.sh lote` (gera a próxima semana; para começar amanhã, rode o Claude manualmente com "Execute routines/lote-semanal.md, mas gere a semana ATUAL a partir de amanhã. MODO LOCAL").
+- Avise: o computador precisa estar ligado nos horários; se estiver desligado, aquele status não sai (o próximo segue normal).
+
+**Modo nuvem:** siga `docs/INSTALACAO.md`, partes C e E:
 - Ambiente na nuvem do Claude Code com as **mesmas variáveis do `.env`** (o usuário digita os valores na tela do ambiente, não no chat) e rede liberada para: o domínio do WAHA, `assets.mixkit.co`, `pypi.org`, `files.pythonhosted.org`, `github.com` e os domínios do Playwright.
 - Crie as 5 rotinas com `/schedule` (tabela da Parte E), modelo Haiku.
 - Rode o primeiro lote manualmente.

@@ -15,7 +15,7 @@ Publica **4 status por dia no WhatsApp**, de forma automática: arte vertical co
    ```
 3. Responda às perguntas. O Claude baixa o projeto, faz uma entrevista curta sobre o seu produto, monta o arquivo `.env` com as suas conexões **na sua máquina**, implementa o sistema, faz um teste que só você vê e agenda as publicações.
 
-Antes de começar, tenha em mãos: um servidor **WAHA** funcionando (https://waha.devlike.pro), o número de WhatsApp que vai publicar, um segundo número para aprovar as prévias e uma conta no GitHub. Detalhes em [COMECE-AQUI.md](COMECE-AQUI.md).
+Antes de começar, tenha em mãos: um servidor **WAHA** funcionando (https://waha.devlike.pro), o número de WhatsApp que vai publicar e um segundo número para aprovar as prévias. **Não precisa de conta no GitHub**: por padrão, o seu próprio computador dispara as publicações (ele precisa estar ligado nos horários). Quem preferir rodar com o computador desligado pode usar a nuvem do Claude Code, com uma conta no GitHub. Detalhes em [COMECE-AQUI.md](COMECE-AQUI.md).
 
 ### Para o Claude
 Se você recebeu o link deste repositório para instalar: clone o repositório numa pasta escolhida pelo usuário, entre nela e siga **exatamente** [.claude/skills/wa-status-instalacao/SKILL.md](.claude/skills/wa-status-instalacao/SKILL.md). Nunca peça a chave da API no chat: o usuário a cola no `.env`, pelo editor.
@@ -32,7 +32,7 @@ Se você recebeu o link deste repositório para instalar: clone o repositório n
 - **Domingo, 19h:** o Claude escreve as 28 peças da semana a partir do seu Documento-Chave e manda as prévias para o seu WhatsApp de aprovação.
 - **Você responde** `OK`, `NAO TER3` ou `REFAZER QUA2 deixe mais curto`. Sem resposta, publica, mas só o que passou em 100% dos filtros automáticos.
 - **Filtros automáticos:** nenhum número que não esteja no seu documento, nenhuma promessa de resultado, nenhum depoimento inventado, nada fora da área visível do status. Para advocacia, há um modo com as regras de publicidade da OAB (Provimento 205/2021).
-- Roda sozinho na nuvem do Claude Code, a partir de um repositório **privado** seu.
+- Roda sozinho no seu computador (sem GitHub) ou na nuvem do Claude Code (com um repositório **privado** seu no GitHub).
 
 ## Documentação
 

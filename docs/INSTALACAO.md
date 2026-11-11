@@ -14,7 +14,7 @@ Legenda: 👤 = você faz · 🤖 = Claude faz · ✅ = como saber que deu certo
 - Um servidor **WAHA** acessível pela internet (HTTPS), com chave de API (https://waha.devlike.pro).
 - Uma **sessão** do WAHA conectada ao número de WhatsApp que vai **publicar** os status.
 - Um **segundo** número de WhatsApp, de quem vai **aprovar** as prévias.
-- Uma conta no **GitHub** (o sistema roda na nuvem a partir de um repositório **privado** seu).
+- **Onde vai rodar:** no seu computador (**sem GitHub**; ele precisa ficar ligado nos horários) ou na nuvem do Claude Code (com conta no **GitHub**; roda com o computador desligado). Ver SPEC 16.
 
 ### A2. Conteúdo do produto (fica em `produtos/<id>/`)
 1. `dc/documento-chave.md`: o Documento-Chave. Veja `produtos/_modelo/dc/LEIA-ME.md` e o exemplo em `produtos/exemplo/`. Sem DC, o Claude faz uma entrevista e escreve um rascunho para você aprovar.
@@ -53,7 +53,7 @@ curl -s -H "$H" "$WAHA_BASE_URL/api/contacts/check-exists?phone=$A&session=$S"
 
 ---
 
-## Parte C — Repositório privado e ambiente na nuvem (👤 + 🤖)
+## Parte C — Só no modo nuvem: repositório privado e ambiente (👤 + 🤖)
 1. O Claude cria um repositório **privado** no seu GitHub e envia o projeto (sem o `.env`). Nunca deixe esse repositório público: ele terá seu conteúdo e o histórico de publicações.
 2. Em **claude.ai/code**, conecte o GitHub e selecione esse repositório.
 3. Crie o **ambiente** (environment) das rotinas:
@@ -78,7 +78,7 @@ curl -s -H "$H" "$WAHA_BASE_URL/api/contacts/check-exists?phone=$A&session=$S"
 
 ---
 
-## Parte E — Rotinas (👤 via Claude Code)
+## Parte E — Rotinas no modo nuvem (👤 via Claude Code)
 Use **`/schedule`** e crie **5 rotinas** no seu repositório privado, modelo **Haiku**, com o ambiente da Parte C:
 
 | Nome | Agenda (UTC) | Equivale a (BRT) | Prompt |
@@ -92,6 +92,47 @@ Use **`/schedule`** e crie **5 rotinas** no seu repositório privado, modelo **H
 **Primeiro lote:** rode a rotina "Lote semanal" manualmente com `Execute routines/lote-semanal.md, mas gere a semana ATUAL a partir de amanhã`.
 
 **Primeira semana:** mantenha `WASTATUS_TESTE=1` por 1 ou 2 dias, confira tudo e depois mude para `0` no ambiente.
+
+---
+
+## Parte E2 — Rotinas no modo local (sem GitHub)
+O agendador do computador chama `scripts/run-rotina.sh`, que carrega o `.env`, roda o Claude Code sem interface e grava o log em `logs/`.
+
+**macOS (launchd).** Um arquivo por rotina em `~/Library/LaunchAgents/`. Modelo para o slot 1 (troque `/CAMINHO/DO/PROJETO`, o nome, os argumentos e o horário):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>wastatus.slot1</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string><string>/CAMINHO/DO/PROJETO/scripts/run-rotina.sh</string>
+    <string>slot</string><string>1</string>
+  </array>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>30</integer></dict>
+</dict></plist>
+```
+| Arquivo | Argumentos | Horário |
+|---|---|---|
+| `wastatus.lote.plist` | `lote` | `Weekday 0`, `Hour 19`, `Minute 0` (domingo) |
+| `wastatus.slot1.plist` | `slot 1` | 07:30 |
+| `wastatus.slot2.plist` | `slot 2` | 12:00 |
+| `wastatus.slot3.plist` | `slot 3` | 17:30 |
+| `wastatus.slot4.plist` | `slot 4` | 20:30 |
+
+Ative com `launchctl load ~/Library/LaunchAgents/wastatus.*.plist`. Se o Mac estiver dormindo no horário, a rotina roda quando ele acordar. Para acordar sozinho: `sudo pmset repeat wakeorpoweron MTWRFSU 07:25:00`.
+
+**Linux / Windows com WSL (cron).** `crontab -e` e acrescente (horários locais; confira com `date +%Z` que o sistema está no horário de Brasília):
+```
+0 19 * * 0   /CAMINHO/DO/PROJETO/scripts/run-rotina.sh lote
+30 7 * * *   /CAMINHO/DO/PROJETO/scripts/run-rotina.sh slot 1
+0 12 * * *   /CAMINHO/DO/PROJETO/scripts/run-rotina.sh slot 2
+30 17 * * *  /CAMINHO/DO/PROJETO/scripts/run-rotina.sh slot 3
+30 20 * * *  /CAMINHO/DO/PROJETO/scripts/run-rotina.sh slot 4
+```
+
+✅ `scripts/run-rotina.sh slot 1` roda na hora e `logs/<hoje>.log` termina com "fim (código 0)".
+
+**Limite do modo local:** com o computador desligado, aquele status não sai; o próximo horário segue normal.
 
 ---
 
@@ -122,4 +163,5 @@ Domingo, por volta das 19h, chegam as prévias da semana, cada uma com um códig
 | Peças das 20:30 bloqueadas | `cta.json` ainda `proposto` | Parte D3. |
 | "DC alterado" no resumo | Você editou o DC | Normal. Âncoras de tema que sumirem do DC bloqueiam (T05); peça ao Claude para atualizar `temas.yaml`. |
 | Status não aparece para contatos | Privacidade de status ou contato sem o número salvo | Parte A5. |
-| Rotina não faz push | Permissão de branch | Parte C4. |
+| Rotina não faz push (nuvem) | Permissão de branch | Parte C4. |
+| Status do horário não saiu (local) | Computador desligado ou Claude Code deslogado | Ver `logs/<data>.log`; rodar `claude` no terminal para conferir o login. |

@@ -14,3 +14,7 @@ dist/
 
 # históricos locais de teste (contêm números de telefone)
 state/teste-*.json
+
+# modo local: logs das rotinas e trava
+logs/
+state/.lock-rotina/

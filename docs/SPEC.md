@@ -23,7 +23,7 @@ Um **produto** é uma oferta com seu próprio número de WhatsApp, aprovador, ma
 | Tema | Decisão |
 |---|---|
 | WhatsApp | Via **WAHA** (API HTTP para WhatsApp), header `X-Api-Key`. Endereço, chave e sessões vêm do `.env`. |
-| Onde roda | Rotinas agendadas do Claude Code na nuvem, sobre um repositório Git **privado** do usuário. |
+| Onde roda | Dois modos, escolhidos na instalação (seção 16): **local** (padrão, sem GitHub: o agendador do computador chama o Claude Code) ou **nuvem** (rotinas do Claude Code sobre um repositório Git **privado** do usuário no GitHub). |
 | Geração | Templates HTML 1080×1920 renderizados por Chromium (Playwright). O texto é escrito pelo agente, a partir do DC. |
 | Formato | Vídeo MP4 de 15 s (arte estática + trilha). Volta a JPEG se `video.ativo: false`. |
 | Mix diário | 07:30 **Autoridade** · 12:00 **Dor** · 17:30 **Prova/Bastidor** · 20:30 **CTA** (padrão; cada produto pode mudar no `produto.yaml`). |
@@ -39,7 +39,7 @@ Um **produto** é uma oferta com seu próprio número de WhatsApp, aprovador, ma
 ## 3. Arquitetura
 
 ```
-┌──────────────── Repositório Git PRIVADO do usuário (clonado pela rotina) ──────────────────┐
+┌──────── Pasta do projeto (modo local) ou repositório Git PRIVADO do usuário (modo nuvem) ───┐
 │ produtos/<id>/  (DC, marca, fotos, temas, CTA — arquivos locais)                            │
 │ config/  prompts/  templates/  wastatus/ (código Python)                                    │
 │ cache/   (logo processado etc. — NÃO versionado)                                            │
@@ -160,14 +160,14 @@ Lote semanal: domingo 19:00 BRT = `0 22 * * 0` UTC.
 6. `validate --fase imagem`. Peça reprovada fica `bloqueada`; o agente pode refazer uma vez se o problema for de texto (ex.: overflow).
 7. `video`: gera os MP4 (seção 15).
 8. `preview`: envia a prévia ao aprovador (8.1).
-9. `git add state/ && git commit && git push`.
+9. `git add state/ && git commit` (e `git push` no modo nuvem).
 
 ### 6.3 Rotinas "Slot" (4×/dia)
-1. `git pull --rebase`.
+1. `git pull --rebase` (só no modo nuvem).
 2. `respostas`: lê as mensagens do aprovador, atualiza `aprovacoes.json` e o `status` das peças (8.2), e imprime a lista `REFAZER_PENDENTE`.
 3. Se houver `REFAZER_PENDENTE` para peças **futuras**, o agente segue `prompts/refazer.md`.
 4. `publicar --slot <N>`: aplica a regra 6.4 e publica (ou não).
-5. Commit e push de `state/`.
+5. Commit de `state/` (e push no modo nuvem).
 6. Se for o slot 4: `resumo-dia` envia ao aprovador o resumo do dia.
 
 ### 6.4 Regra de decisão de publicação (`publicar`)
@@ -376,8 +376,8 @@ Usam o produto fictício `produtos/exemplo/` e `examples/lote-exemplo.json`.
 
 ## 13. Variáveis de ambiente
 Ver `.env.example`: `WAHA_BASE_URL`, `WHATSAPP_API_KEY`, `PRODUTOS_ATIVOS`, por produto `<PREFIXO>_WAHA_SESSION` e `<PREFIXO>_APPROVER_CHAT_ID`, e `WASTATUS_TESTE`.
-- **Local:** no arquivo `.env` na raiz do projeto (`chmod 600`), nunca versionado.
-- **Nuvem:** nas variáveis do ambiente da rotina.
+- **Modo local:** só no arquivo `.env` na raiz do projeto (`chmod 600`), nunca versionado.
+- **Modo nuvem:** também nas variáveis do ambiente da rotina.
 - A chave **nunca** vai para o repositório, o prompt da rotina, log, commit ou chat.
 
 ---
@@ -401,3 +401,22 @@ Ver `.env.example`: `WAHA_BASE_URL`, `WHATSAPP_API_KEY`, `PRODUTOS_ATIVOS`, por 
 - **Trilhas:** só as de `config/musicas.json` com `status: "aprovado"`, baixadas da Mixkit por `scripts/baixar_musicas.py` (licença Mixkit: uso comercial permitido, sem atribuição; **proibido redistribuir a música isolada**, por isso os MP3 não são versionados). Rodízio: a mesma faixa não se repete em 2 slots seguidos. O agente **nunca** baixa música de outra fonte.
 - **Publicação:** `POST /api/{s}/status/video` (9.2). Com `video.ativo: false`, volta para `/status/image` com o JPEG.
 - **Prévia:** continua sendo a imagem, com "🎵 <faixa>" na legenda.
+
+---
+
+## 16. Modos de execução
+
+| | **Local** (padrão) | **Nuvem** |
+|---|---|---|
+| Precisa de conta no GitHub | **Não** | Sim (repositório privado) |
+| Quem dispara as rotinas | Agendador do computador: `launchd` (macOS) ou `cron` (Linux/WSL), chamando `scripts/run-rotina.sh` | Rotinas `/schedule` do Claude Code |
+| Computador ligado nos horários | **Sim** (07:30, 12:00, 17:30, 20:30 e domingo 19:00) | Não |
+| Onde fica o `state/` | No disco; histórico em git local, sem servidor | No repositório, com `git push` a cada execução |
+| Segredos | `.env` | Variáveis do ambiente da rotina |
+
+**Modo local:**
+- `scripts/run-rotina.sh lote|slot <N>` carrega o `.env`, impede duas execuções simultâneas (trava em `state/.lock-rotina`), chama `claude -p "<prompt>" --model haiku --allowedTools Bash Read Edit Write Glob Grep`, grava o log em `logs/AAAA-MM-DD.log` (30 dias) e, em falha, envia `alerta` ao aprovador.
+- As rotinas pulam `git pull` e `git push`; o commit local de `state/` continua (histórico sem conta).
+- macOS: usar `launchd` com `StartCalendarInterval`: se o Mac estiver dormindo no horário, a rotina roda ao acordar (o `publicar` respeita as regras da 6.4). Recomendado agendar o despertar: `sudo pmset repeat wakeorpoweron MTWRFSU 07:25:00`.
+- Linux/WSL: `cron` no fuso do sistema; conferir com `date +%Z` que é horário de Brasília, ou converter os horários.
+- O Claude Code precisa estar logado no computador (`claude` funcionando no terminal).

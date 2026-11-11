@@ -8,7 +8,8 @@ Este projeto publica **4 status por dia no WhatsApp**: arte + jazz instrumental 
 - [ ] Um servidor **WAHA** acessível pela internet (HTTPS), com a **chave da API** (https://waha.devlike.pro). Se alguém administra o servidor para você, peça o endereço, a chave e o nome da sessão.
 - [ ] O número de WhatsApp que vai **publicar**, conectado a uma sessão do WAHA.
 - [ ] Um **segundo** número de WhatsApp, de quem vai **aprovar** as prévias.
-- [ ] Uma conta no **GitHub**, para as publicações rodarem sozinhas na nuvem.
+- [ ] Um computador que fique **ligado** nos horários das publicações (07:30, 12:00, 17:30, 20:30 e domingo 19:00). **Não precisa de GitHub.**
+  - Alternativa: rodar na nuvem do Claude Code, com o computador desligado. Aí é preciso uma conta no **GitHub**.
 - [ ] Opcional, mas ajuda muito: um texto descrevendo a sua oferta, o seu logo (PNG com fundo transparente) e fotos suas.
 
 ## Instalação
@@ -18,16 +19,17 @@ Este projeto publica **4 status por dia no WhatsApp**: arte + jazz instrumental 
 
 Se você já baixou o projeto: abra o Claude Code dentro da pasta e digite `/wa-status-instalacao`.
 
-O Claude vai, nesta ordem: conferir o computador → entrevistar você sobre o produto, o conteúdo e o WhatsApp → montar o `.env` → testar o WAHA → preparar o conteúdo (documento, temas, marca, CTA) → criar um repositório **privado** seu → implementar o sistema, tarefa por tarefa → pedir suas aprovações (marca, fotos, CTA, músicas) → fazer um teste que só você vê → agendar as rotinas na nuvem.
+O Claude vai, nesta ordem: conferir o computador → entrevistar você sobre o produto, o conteúdo e o WhatsApp → montar o `.env` → testar o WAHA → preparar o conteúdo (documento, temas, marca, CTA) → (só no modo nuvem) criar um repositório **privado** seu → implementar o sistema, tarefa por tarefa → pedir suas aprovações (marca, fotos, CTA, músicas) → fazer um teste que só você vê → agendar as publicações no seu computador (ou na nuvem).
 
 Pode parar a qualquer momento: na próxima vez, digite `/wa-status-instalacao` e ele retoma de onde parou.
 
 ## Onde ficam os seus dados
 | O quê | Onde |
 |---|---|
-| Endereço do WAHA, chave, sessão, número do aprovador | `.env`, na pasta do projeto, **só na sua máquina** (fora do git) e nas variáveis do ambiente da nuvem |
-| Documento-Chave, logo, fotos, temas, CTA | `produtos/<seu-produto>/`, no seu repositório **privado** |
-| Prévias e histórico de publicações | `state/`, no seu repositório **privado** |
+| Endereço do WAHA, chave, sessão, número do aprovador | `.env`, na pasta do projeto, **só na sua máquina** (fora do git); no modo nuvem, também nas variáveis do ambiente da rotina |
+| Documento-Chave, logo, fotos, temas, CTA | `produtos/<seu-produto>/`, na pasta do projeto (e no seu repositório **privado**, no modo nuvem) |
+| Prévias e histórico de publicações | `state/`, na pasta do projeto (e no repositório privado, no modo nuvem) |
+| Logs das execuções (modo local) | `logs/`, na pasta do projeto |
 
 ## Três cuidados
 - 🔑 **A chave da API nunca vai no chat.** Quando o Claude pedir, abra o arquivo `.env` no editor, cole a chave e salve.

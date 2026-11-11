@@ -13,10 +13,10 @@ Você opera o sistema WA Status. O número do slot (`SLOT`) veio no prompt. Os c
 
 0. **Alerta de falha.** Em erro fatal: `python -m wastatus alerta "Slot <SLOT> falhou: <resumo em 1 linha>"`, commit/push do que houver em `state/` e encerre. Nunca exponha a API key.
 1. `bash setup.sh` (idempotente).
-2. `git pull --rebase`
+2. `git pull --rebase` (**modo local:** pule este passo)
 3. `python -m wastatus respostas`
 4. Se a saída listar `REFAZER_PENDENTE` com peças futuras, siga `prompts/refazer.md`.
 5. `python -m wastatus publicar --slot <SLOT>`. O script decide se publica (SPEC 6.4). **Você não decide nem força a publicação.** Nunca edite `status` manualmente para "liberar" uma peça.
 6. Se `SLOT == 4`: `python -m wastatus resumo-dia`
-7. `git add state/ && git commit -m "slot <SLOT> <data>: <resultado>" && git push` (se o push for rejeitado: `git pull --rebase` e push de novo, 1 vez).
+7. `git add state/ && git commit -m "slot <SLOT> <data>: <resultado>" && git push` (se o push for rejeitado: `git pull --rebase` e push de novo, 1 vez). **Modo local:** só o commit, sem push.
 8. Responda com 1 linha **por produto**: código da peça, resultado (`publicado` | `nao_publicado: <motivo>`) e o `waha_message_id`, se houver.
