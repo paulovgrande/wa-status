@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{# Pilares: autoridade, dor. Campos: kicker, headline, corpo, cta_texto (opcional). #}
+{% block css %}
+.canvas{ background: radial-gradient(1100px 900px at 85% 8%, var(--grafite) 0%, var(--ink) 62%); }
+.filete{ position:absolute; left:0; top:230px; width:10px; height:1220px; background: linear-gradient(var(--ouro-claro), var(--ouro-escuro)); }
+{% endblock %}
+{% block conteudo %}
+<div class="filete"></div>
+<div class="bloco" data-fit>
+  <div class="kicker" data-box="kicker" style="color:var(--ouro);">{{ p.kicker }}</div>
+  <div class="regua" style="background:var(--ouro);"></div>
+  <div class="headline {{ 'h-xl' if hl <= 40 else ('h-l' if hl <= 55 else 'h-m') }}" data-box="headline" style="color:var(--texto-claro);">{{ p.headline }}</div>
+  <div class="corpo" data-box="corpo" style="color:var(--texto-suave);">{{ p.corpo }}</div>
+  {% if p.cta_texto %}<div class="cta-linha" data-box="cta" style="color:var(--ouro-claro);">→ {{ p.cta_texto }}</div>{% endif %}
+</div>
+<div class="rodape" data-box="logo">
+  <img src="{{ logo_src }}" alt="">
+  <div class="assinatura"><b>{{ brand.assinatura.nome }}</b>{{ brand.assinatura.linha2 }}</div>
+</div>
+{% endblock %}

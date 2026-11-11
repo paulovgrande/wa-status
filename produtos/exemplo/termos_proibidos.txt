@@ -1,0 +1,4 @@
+# Termos proibidos EXTRAS deste produto (somados aos de config/termos_proibidos.txt).
+# Um regex por linha, aplicado ao texto sem acentos e em minúsculas.
+\bconselho de investimento\b
+\bimposto zero\b

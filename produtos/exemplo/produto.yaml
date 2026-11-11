@@ -1,0 +1,28 @@
+# Produto de EXEMPLO (fictício). Serve para demonstrar e testar o sistema; não publique com ele.
+# Para o seu produto: copie produtos/_modelo/ para produtos/<seu-id>/ (a instalação faz isso por você).
+id: exemplo
+nome: "Consultoria Exemplo"
+env_prefixo: EXEMPLO             # lê EXEMPLO_WAHA_SESSION e EXEMPLO_APPROVER_CHAT_ID do .env
+ativo: false                     # o exemplo nunca publica
+dc: dc/documento-chave.md
+
+waha:
+  engine: null                   # preenchido pelo setup-check --produto <id>
+  numero_publicador: null
+
+autor: "Ana Exemplo"             # quem "fala" nos status (primeira pessoa)
+publico: "Donos de empresas de serviços com 3 a 20 pessoas que cuidam do financeiro sozinhos"
+voz: "Primeira pessoa, consultiva, direta, sem jargão contábil; conversa entre empreendedores"
+vocabulario: ["fluxo de caixa", "pró-labore", "custo da hora", "inadimplência", "rotina semanal"]
+nome_da_oferta: "consultoria"    # como chamar o que você oferece (nunca "produto")
+emojis_legenda_max: 2
+regras_publicidade: null         # ou oab_205_2021 (advocacia: tom informativo, sem emojis, sigilo)
+observacoes: ""
+
+slots:
+  - {n: 1, hora: "07:30", pilar: autoridade}
+  - {n: 2, hora: "12:00", pilar: dor}
+  - {n: 3, hora: "17:30", pilar: prova}
+  - {n: 4, hora: "20:30", pilar: cta}
+
+musicas: todas_aprovadas

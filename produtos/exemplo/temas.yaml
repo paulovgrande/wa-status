@@ -1,0 +1,27 @@
+# Temas do produto de EXEMPLO. Cada dc_ancora é um trecho LITERAL de dc/documento-chave.md.
+# Num produto real, o recomendado é ter no mínimo 12 autoridade, 12 dor, 9 prova e 7 cta.
+autoridade:
+  - {id: A01, titulo: "Separar conta da empresa e do dono", dc_ancora: "Pró-labore fixo é o primeiro passo para separar empresa e dono."}
+  - {id: A02, titulo: "Fluxo de caixa semanal", dc_ancora: "fluxo de caixa semanal com entradas e saídas previstas"}
+  - {id: A03, titulo: "Rotina curta de revisão", dc_ancora: "rotina de 30 minutos por semana para revisar números e ajustar preço"}
+  - {id: A04, titulo: "Saldo não é caixa", dc_ancora: "Saldo do banco não é fluxo de caixa."}
+  - {id: A05, titulo: "As 3 etapas do método", dc_ancora: "Método em 3 etapas."}
+  - {id: A06, titulo: "Preço com custo da hora", dc_ancora: "Preço sem custo da hora é aposta."}
+dor:
+  - {id: D01, titulo: "Não sobra no fim do mês", dc_ancora: "O dinheiro entra, mas no fim do mês não sobra."}
+  - {id: D02, titulo: "Contas misturadas", dc_ancora: "Conta da empresa e conta pessoal misturadas."}
+  - {id: D03, titulo: "Preço no chute", dc_ancora: "Preço definido no chute, sem saber o custo real da hora."}
+  - {id: D04, titulo: "Decidir pelo saldo", dc_ancora: "Decisões tomadas olhando o saldo do banco, não o fluxo de caixa."}
+  - {id: D05, titulo: "Inadimplência tardia", dc_ancora: "Inadimplência descoberta tarde demais."}
+  - {id: D06, titulo: "Planilha só do dono", dc_ancora: "Planilha que só o dono entende."}
+prova:
+  - {id: P01, titulo: "Bastidor da rotina semanal", tipo_prova: bastidor, dc_ancora: "Rotina curta e semanal, pensada para quem não tem tempo."}
+  - {id: P02, titulo: "Passo: separar as contas", tipo_prova: processo, dc_ancora: "Separar: conta da empresa separada da conta pessoal, com pró-labore fixo."}
+  - {id: P03, titulo: "Aprendizado: faturamento engana", tipo_prova: aprendizado, dc_ancora: "Faturamento alto não é sinônimo de dinheiro sobrando."}
+  - {id: P04, titulo: "Antes e depois da inadimplência", tipo_prova: demonstracao, dc_ancora: "Inadimplência vista cedo é conversa; vista tarde é prejuízo."}
+  - {id: P05, titulo: "Modelos prontos", tipo_prova: processo, dc_ancora: "Modelos prontos de fluxo de caixa e de cálculo de preço."}
+cta:
+  - {id: C01, titulo: "Diagnóstico do financeiro", dc_ancora: "Convite para uma conversa de diagnóstico do financeiro da empresa."}
+  - {id: C02, titulo: "Aprender a ler os números", dc_ancora: "O dono aprende a ler os próprios números; não depende de nós para sempre."}
+  - {id: C03, titulo: "Rotina para quem não tem tempo", dc_ancora: "Rotina curta e semanal, pensada para quem não tem tempo."}
+  - {id: C04, titulo: "Número para decidir", dc_ancora: "Número que só o dono entende não serve para decidir."}

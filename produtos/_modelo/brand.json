@@ -1,0 +1,30 @@
+{
+  "_doc": "Identidade visual do produto. status 'proposto' => validador I06 bloqueia toda publicação deste produto até você aprovar. Arquivos em produtos/<id>/marca/.",
+  "status": "proposto",
+  "logos": {
+    "principal": {
+      "arquivo": "marca/logo-principal.png",
+      "uso": "PENDENTE: colocar o logo em produtos/<id>/marca/ (PNG com fundo transparente) e dizer se ele é para fundo escuro ou claro."
+    }
+  },
+  "paleta": {
+    "ink": "#121417",
+    "grafite": "#1E2228",
+    "ouro": "#C9A45C",
+    "ouro_claro": "#E8D48E",
+    "ouro_escuro": "#7A5A22",
+    "creme": "#F6F3EC",
+    "texto_claro": "#F3EFE6",
+    "texto_suave": "#B9B4A9",
+    "texto_escuro": "#1B1D21",
+    "_obs": "Paleta padrão (grafite + dourado). A instalação pode extrair as cores do seu logo e propor outra, mantendo os mesmos nomes de token."
+  },
+  "fontes": {
+    "titulo": {"familia": "Libre Baskerville", "peso": 700, "arquivo": "assets/fonts/LibreBaskerville-Variable.ttf"},
+    "texto": {"familia": "Inter", "peso": [400, 600], "arquivo": "assets/fonts/Inter-Variable.ttf"}
+  },
+  "assinatura": {
+    "nome": "Seu nome",
+    "linha2": "Nome do negócio"
+  }
+}

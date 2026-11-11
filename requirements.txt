@@ -1,0 +1,9 @@
+# Fixar versões exatas (==) na implementação, após o primeiro `pip install` bem-sucedido.
+httpx
+jinja2
+playwright
+pillow
+pyyaml
+jsonschema
+python-dotenv
+pytest

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lote semanal WA Status",
+  "type": "object",
+  "required": ["semana", "gerado_em", "pecas"],
+  "properties": {
+    "semana": {"type": "string", "pattern": "^(\\d{4}-W\\d{2}|EXEMPLO)$"},
+    "gerado_em": {"type": "string"},
+    "dc_sha256": {"type": ["string", "null"]},
+    "preview_iniciado_em": {"type": ["string", "null"]},
+    "pecas": {
+      "type": "array",
+      "maxItems": 28,
+      "items": {
+        "type": "object",
+        "required": ["codigo", "data", "hora", "pilar", "layout", "tema_id", "foto", "status",
+                     "kicker", "headline", "corpo", "itens", "legenda", "cta_texto", "fontes_dc"],
+        "properties": {
+          "codigo": {"type": "string", "pattern": "^(SEG|TER|QUA|QUI|SEX|SAB|DOM)[1-4]$"},
+          "data": {"type": "string", "format": "date"},
+          "hora": {"enum": ["07:30", "12:00", "17:30", "20:30"]},
+          "pilar": {"enum": ["autoridade", "dor", "prova", "cta"]},
+          "layout": {"enum": ["tipografico_escuro", "tipografico_claro", "lista", "foto_topo", "cta"]},
+          "tema_id": {"type": "string", "pattern": "^[ADPC]\\d{2}$"},
+          "foto": {"type": ["string", "null"]},
+          "serie_editorial": {"type": ["string", "null"]},
+          "status": {"enum": ["rascunho", "validada", "renderizada", "aguardando", "aprovada", "reprovada",
+                               "refazer_pendente", "bloqueada", "publicada", "nao_publicada"]},
+          "kicker": {"type": "string", "maxLength": 28},
+          "headline": {"type": "string", "maxLength": 70},
+          "corpo": {"type": "string", "maxLength": 180},
+          "itens": {"type": "array", "items": {"type": "string", "maxLength": 48}, "maxItems": 3},
+          "legenda": {"type": "string", "maxLength": 300},
+          "cta_texto": {"type": "string", "maxLength": 90},
+          "fontes_dc": {"type": "array", "items": {"type": "string", "minLength": 12}, "maxItems": 3},
+          "tipo_prova": {"enum": ["bastidor", "processo", "aprendizado", "demonstracao"]},
+          "erros": {"type": "array", "items": {"type": "string"}},
+          "tentativas_texto": {"type": "integer", "minimum": 0},
+          "instrucao_refazer": {"type": ["string", "null"]},
+          "nota_refazer": {"type": ["string", "null"]},
+          "foto_escala": {"type": ["number", "null"]},
+          "foto_recorte": {"type": ["array", "null"], "items": {"type": "integer"}},
+          "jpeg": {"type": ["string", "null"]},
+          "sha256": {"type": ["string", "null"]},
+          "preview_enviado_em": {"type": ["string", "null"]},
+          "preview_sha256": {"type": ["string", "null"]},
+          "preview_message_id": {"type": ["string", "null"]},
+          "versao": {"type": "integer", "minimum": 1}
+        }
+      }
+    }
+  }
+}

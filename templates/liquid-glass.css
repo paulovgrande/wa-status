@@ -1,0 +1,31 @@
+/* LIQUID GLASS — variante opcional dos layouts escuros. Ver docs/GUIA-VISUAL.md, seção 8.
+   Uso: incluir este CSS dentro do <style> do layout renderizado e:
+   1) inserir, como primeiro filho da div .canvas, o bloco:
+      <div class="luzes"><i class="l1"></i><i class="l2"></i><i class="l3"></i></div>
+   2) acrescentar a classe "vidro" em .bloco e .rodape  (ex.: <div class="bloco vidro" data-fit>).
+   NÃO definir position em .vidro: .bloco e .rodape já são position:absolute (definir relative quebra o layout).
+   Referências renderizadas: examples/liquid-glass/SEG2-vidro.jpg e SEG4-vidro.jpg. */
+
+/* Luzes douradas desfocadas ATRÁS do vidro (sem elas o vidro não aparece) */
+.luzes{ position:absolute; inset:0; pointer-events:none; }
+.luzes i{ position:absolute; border-radius:50%; filter:blur(90px); }
+.luzes .l1{ left:-180px; top:120px;  width:620px; height:620px; background:rgba(201,164,92,.30); }
+.luzes .l2{ right:-220px; top:860px; width:700px; height:700px; background:rgba(122,90,34,.38); }
+.luzes .l3{ left:300px; top:1500px;  width:520px; height:420px; background:rgba(232,212,142,.14); }
+
+/* Painel de vidro fumê */
+.vidro{ background:linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.035) 45%, rgba(255,255,255,.06) 100%);
+  backdrop-filter:blur(28px) saturate(140%); -webkit-backdrop-filter:blur(28px) saturate(140%);
+  border:1.5px solid rgba(232,212,142,.30); border-radius:40px;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.25), 0 30px 80px rgba(0,0,0,.45); }
+/* Reflexo especular no canto superior esquerdo */
+.vidro::before{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:linear-gradient(160deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 32%); }
+
+/* Geometria dos painéis (y: 250..1210 conteúdo; 1240..1440 cápsula da assinatura) */
+.bloco.vidro{ left:56px; width:968px; padding:64px 56px; top:250px; height:960px; }
+.rodape.vidro{ left:56px; width:968px; padding:0 40px; border-radius:999px; height:200px; top:1240px; }
+.rodape.vidro img{ height:150px; }
+
+/* Botão do CTA sobre o vidro */
+.botao{ background:rgba(201,164,92,.14)!important; backdrop-filter:blur(12px); box-shadow: inset 0 1.5px 0 rgba(255,255,255,.18); }

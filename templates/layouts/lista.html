@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{# Pilares: autoridade, prova. Campos: kicker, headline, itens (exatamente 3). corpo NÃO aparece na arte. #}
+{% block css %}
+.canvas{ background: linear-gradient(180deg, var(--grafite) 0%, var(--ink) 55%); }
+.itens{ display:flex; flex-direction:column; gap:30px; margin-top:16px; }
+.item{ display:flex; gap:30px; align-items:baseline; padding-top:30px; border-top:2px solid rgba(201,164,92,.35); }
+.num{ font-family:"Libre Baskerville", serif; font-weight:700; font-size:60px; line-height:1; color:var(--ouro); min-width:100px; }
+.txt{ font-size:46px; line-height:1.3; color:var(--texto-claro); text-wrap:pretty; }
+{% endblock %}
+{% block conteudo %}
+<div class="bloco" data-fit>
+  <div class="kicker" data-box="kicker" style="color:var(--ouro);">{{ p.kicker }}</div>
+  <div class="regua" style="background:var(--ouro);"></div>
+  <div class="headline {{ 'h-l' if hl <= 40 else ('h-m' if hl <= 55 else 'h-s') }}" data-box="headline" style="color:var(--texto-claro);">{{ p.headline }}</div>
+  <div class="itens" data-box="itens">
+    {% for it in p.itens %}
+    <div class="item"><div class="num">{{ "%02d"|format(loop.index) }}</div><div class="txt">{{ it }}</div></div>
+    {% endfor %}
+  </div>
+</div>
+<div class="rodape" data-box="logo">
+  <img src="{{ logo_src }}" alt="">
+  <div class="assinatura"><b>{{ brand.assinatura.nome }}</b>{{ brand.assinatura.linha2 }}</div>
+</div>
+{% endblock %}

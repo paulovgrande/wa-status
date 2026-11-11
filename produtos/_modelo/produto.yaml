@@ -1,0 +1,27 @@
+# Modelo de produto. A instalação copia esta pasta para produtos/<id>/ e preenche com as suas respostas.
+id: NOVO                         # minúsculas, sem espaço (ex.: consultoria)
+nome: "Nome do produto"
+env_prefixo: NOVO                # MAIÚSCULAS; lê NOVO_WAHA_SESSION e NOVO_APPROVER_CHAT_ID do .env
+ativo: false                     # ligar quando DC, marca, temas e CTA estiverem aprovados
+dc: dc/documento-chave.md
+
+waha:
+  engine: null                   # preenchido pelo setup-check --produto <id>
+  numero_publicador: null
+
+autor: "Seu nome"                # quem "fala" nos status (primeira pessoa); vai na assinatura da arte
+publico: "quem é o público, em 1 frase"
+voz: "tom de voz, em 1 frase"
+vocabulario: []                  # termos do seu DC que devem aparecer
+nome_da_oferta: "mentoria"       # como chamar o que você oferece (nunca "produto")
+emojis_legenda_max: 2            # 0 se a sua identidade não usa emojis
+regras_publicidade: null         # oab_205_2021 para advocacia (tom informativo, sem emojis, sigilo)
+observacoes: ""
+
+slots:
+  - {n: 1, hora: "07:30", pilar: autoridade}
+  - {n: 2, hora: "12:00", pilar: dor}
+  - {n: 3, hora: "17:30", pilar: prova}
+  - {n: 4, hora: "20:30", pilar: cta}
+
+musicas: todas_aprovadas         # ou lista de ids de config/musicas.json

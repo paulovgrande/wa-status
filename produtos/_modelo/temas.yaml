@@ -1,0 +1,7 @@
+# Banco de temas por pilar. Cada tema PRECISA ter dc_ancora = trecho LITERAL de dc/documento-chave.*
+# Preencher depois que o DC estiver na pasta dc/ (o Claude gera uma proposta com: "proponha os temas do produto <id>").
+# Mínimo recomendado: 12 autoridade, 12 dor, 9 prova (com tipo_prova), 7 cta.
+autoridade: []
+dor: []
+prova: []
+cta: []

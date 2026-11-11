@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920">
+{#
+  Template base 1080x1920 para status do WhatsApp.
+  Variáveis: asset_base (file:///caminho/do/repo), brand (produtos/<id>/brand.json), p (peça do lote.json),
+             logo_src, foto_src (já recortada pelo photos.py), layout.
+  Regras: todo texto/logo tem data-box="<nome>"; caixas de texto com data-fit têm altura fixa
+  e overflow:hidden — o renderer reprova se scrollHeight > clientHeight (I03).
+  Área segura (I02): x 72..1008, y 230..1650. Nada de texto/logo fora dela.
+#}
+{% set c = brand.paleta %}
+{% set hl = p.headline|length %}
+<style>
+@font-face { font-family: "Libre Baskerville"; src: url("{{ asset_base }}/assets/fonts/LibreBaskerville-Variable.ttf"); font-weight: 400 700; }
+@font-face { font-family: "Inter"; src: url("{{ asset_base }}/assets/fonts/Inter-Variable.ttf"); font-weight: 100 900; }
+:root{
+  --ink: {{ c.ink }}; --grafite: {{ c.grafite }}; --ouro: {{ c.ouro }}; --ouro-claro: {{ c.ouro_claro }};
+  --ouro-escuro: {{ c.ouro_escuro }}; --creme: {{ c.creme }}; --texto-claro: {{ c.texto_claro }};
+  --texto-suave: {{ c.texto_suave }}; --texto-escuro: {{ c.texto_escuro }};
+}
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+html,body{ width:1080px; height:1920px; overflow:hidden; background: var(--ink); }
+body{ font-family: "Inter", sans-serif; -webkit-font-smoothing: antialiased; }
+.canvas{ position:relative; width:1080px; height:1920px; overflow:hidden; }
+.abs{ position:absolute; left:72px; width:936px; }
+/* Bloco de conteúdo em fluxo: ocupa y=270..1410, centraliza verticalmente; data-fit detecta estouro (I03). */
+.bloco{ position:absolute; left:72px; width:936px; top:250px; height:960px; display:flex; flex-direction:column; justify-content:center; gap:44px; overflow:hidden; }
+.bloco .regua{ margin-top:-20px; }
+.kicker{ font-weight:600; font-size:30px; letter-spacing:.16em; text-transform:uppercase; line-height:1.2; }
+.regua{ height:4px; width:96px; }
+.headline{ font-family:"Libre Baskerville", serif; font-weight:700; line-height:1.16; letter-spacing:-.005em; text-wrap:balance; }
+.h-xl{ font-size:84px; } .h-l{ font-size:72px; } .h-m{ font-size:64px; } .h-s{ font-size:58px; }
+.corpo{ font-size:44px; line-height:1.42; text-wrap:pretty; }
+.cta-linha{ font-weight:600; font-size:38px; line-height:1.3; }
+.rodape{ position:absolute; left:72px; width:936px; top:1250px; height:180px; display:flex; align-items:center; gap:28px; }
+.rodape img{ height:170px; width:auto; display:block; }
+.assinatura{ font-size:30px; line-height:1.35; color: var(--texto-suave); }
+.assinatura b{ display:block; font-weight:600; color: var(--texto-claro); font-size:34px; }
+{% block css %}{% endblock %}
+</style>
+</head>
+<body>
+<div class="canvas layout-{{ layout }}">
+{% block conteudo %}{% endblock %}
+</div>
+</body>
+</html>

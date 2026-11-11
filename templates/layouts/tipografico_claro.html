@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{# Pilares: dor, prova. Fundo creme; logo sempre sobre faixa escura (contraste do dourado). #}
+{% block css %}
+html,body{ background: var(--creme); }
+.canvas{ background: var(--creme); }
+.bloco{ height:930px; }
+.faixa{ position:absolute; left:0; top:1220px; width:1080px; height:700px; background: var(--ink); }
+.faixa::before{ content:""; position:absolute; left:0; top:0; width:1080px; height:6px; background: linear-gradient(90deg, var(--ouro-escuro), var(--ouro-claro), var(--ouro-escuro)); }
+{% endblock %}
+{% block conteudo %}
+<div class="faixa"></div>
+<div class="bloco" data-fit>
+  <div class="kicker" data-box="kicker" style="color:var(--ouro-escuro);">{{ p.kicker }}</div>
+  <div class="regua" style="background:var(--ouro-escuro);"></div>
+  <div class="headline {{ 'h-xl' if hl <= 40 else ('h-l' if hl <= 55 else 'h-m') }}" data-box="headline" style="color:var(--texto-escuro);">{{ p.headline }}</div>
+  <div class="corpo" data-box="corpo" style="color:#3A3D44;">{{ p.corpo }}</div>
+  {% if p.cta_texto %}<div class="cta-linha" data-box="cta" style="color:var(--ouro-escuro);">→ {{ p.cta_texto }}</div>{% endif %}
+</div>
+<div class="rodape" data-box="logo" style="top:1250px;">
+  <img src="{{ logo_src }}" alt="">
+  <div class="assinatura"><b>{{ brand.assinatura.nome }}</b>{{ brand.assinatura.linha2 }}</div>
+</div>
+{% endblock %}

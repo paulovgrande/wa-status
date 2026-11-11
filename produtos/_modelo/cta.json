@@ -1,0 +1,16 @@
+{
+  "_doc": "Destino do CTA. O agente nunca escreve número ou URL: eles vêm sempre deste arquivo. Modos: responder_status (padrão, não precisa de link), whatsapp (wa.me montado pelo script) ou formulario (URL acrescentada pelo script no fim da legenda).",
+  "modo": "responder_status",
+  "status": "proposto",
+  "responder_status": {
+    "palavra_chave": "DIAGNÓSTICO"
+  },
+  "whatsapp": {
+    "numero_e164": "",
+    "mensagem_pronta": ""
+  },
+  "formulario": {
+    "url": "",
+    "cta_texto_padrao": "Agende pelo link na legenda"
+  }
+}

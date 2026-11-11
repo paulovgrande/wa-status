@@ -1,0 +1,41 @@
+# Um regex por linha (Python re, IGNORECASE). Aplicado ao texto SEM ACENTOS e em minúsculas.
+# Comentários começam com '#'. Adicionar termos aqui nunca exige mudar código.
+# --- promessa de resultado ---
+\bgarant(ia|ido|ida|idos|idas|o|imos|e)\b
+\bcom certeza\b
+\bcerteza de\b
+\baprovacao certa\b
+\bresultado (certo|assegurado|imediato)\b
+\b(vai|voce vai|vao) (faturar|lucrar|ganhar|dobrar|triplicar)\b
+\b(dobr|tripl|quadrupl)(ar|e|ou|a)\b
+\bretorno (financeiro )?(certo|garantido|de \d)
+\broi de\b
+\bsem esforco\b
+\bfique rico\b
+\bdinheiro facil\b
+# --- claims absolutos ---
+\bo melhor\b
+\ba melhor\b
+\bmelhores do\b
+\bunic[oa]s?\b
+\binfalive(l|is)\b
+\bsem risco\b
+\b100 ?%
+\bdefinitiv[oa]\b
+\brevolucionari[oa]\b
+\bnumero 1\b
+\bn[oº]\s?1\b
+# --- jurídico / mérito ---
+\bganhe (a|sua) (causa|acao)\b
+\bvitoria (certa|garantida)\b
+\bjurisprudencia\b
+\bmerito (da|das) (causa|causas)\b
+# --- prova inventada / terceiros ---
+\bmeu cliente\b
+\bminha cliente\b
+\bmentorad[oa]s? [a-z]+ (aumentou|faturou|cresceu|dobrou)
+\bdepoimento\b
+# --- urgência / escassez ---
+\bultimas vagas\b
+\bso hoje\b
+# Preço, desconto e promoção: bloqueie por produto em produtos/<id>/termos_proibidos.txt, se fizer sentido.

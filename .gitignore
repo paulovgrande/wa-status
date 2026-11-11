@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+cache/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# trilhas: baixadas por scripts/baixar_musicas.py (licença Mixkit não permite redistribuir)
+assets/musica/*.mp3
+examples/video/
+dist/
+
+# históricos locais de teste (contêm números de telefone)
+state/teste-*.json

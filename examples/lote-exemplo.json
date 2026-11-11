@@ -1,0 +1,82 @@
+{
+  "_doc": "Peças-referência do produto FICTÍCIO 'exemplo' (produtos/exemplo/). Servem de padrão de qualidade, tom e uso de fontes_dc, e alimentam os testes de aceite. Todas passam nos validadores de texto. NÃO publicar: são exemplos.",
+  "produto": "exemplo",
+  "semana": "EXEMPLO",
+  "gerado_em": "2026-11-11T19:00:00-03:00",
+  "dc_sha256": null,
+  "pecas": [
+    {
+      "codigo": "SEG1", "data": "2026-11-16", "hora": "07:30", "pilar": "autoridade", "layout": "lista",
+      "tema_id": "A05", "foto": null, "status": "rascunho",
+      "kicker": "O MÉTODO EM 3 ETAPAS",
+      "headline": "Organizar o financeiro começa antes da planilha",
+      "corpo": "",
+      "itens": [
+        "Separar a conta da empresa da sua",
+        "Enxergar o caixa da semana",
+        "Decidir com os números na mão"
+      ],
+      "legenda": "Muita empresa troca de planilha esperando que a organização venha junto. Ela não vem. Primeiro separa, depois enxerga, só então decide. É nessa ordem que o financeiro para de ser susto. 📌",
+      "cta_texto": "",
+      "fontes_dc": [
+        "Método em 3 etapas.",
+        "Separar: conta da empresa separada da conta pessoal, com pró-labore fixo."
+      ]
+    },
+    {
+      "codigo": "SEG2", "data": "2026-11-16", "hora": "12:00", "pilar": "dor", "layout": "tipografico_escuro",
+      "tema_id": "D01", "foto": null, "status": "rascunho",
+      "kicker": "A conta que não fecha",
+      "headline": "O dinheiro entra. No fim do mês, não sobra.",
+      "corpo": "Faturar bem e terminar o mês no aperto é mais comum do que parece. Quase sempre o problema está em onde o dinheiro vai parar, não em quanto entra.",
+      "itens": [],
+      "legenda": "Se a sua empresa fatura e mesmo assim falta dinheiro no fim do mês, vale olhar para a saída antes de buscar mais venda. Você sabe para onde foi o caixa deste mês?",
+      "cta_texto": "",
+      "fontes_dc": [
+        "O dinheiro entra, mas no fim do mês não sobra.",
+        "Faturamento alto não é sinônimo de dinheiro sobrando."
+      ]
+    },
+    {
+      "codigo": "SEG3", "data": "2026-11-16", "hora": "17:30", "pilar": "prova", "layout": "tipografico_claro",
+      "tema_id": "P01", "foto": null, "status": "rascunho", "tipo_prova": "bastidor",
+      "kicker": "Bastidor · minha rotina",
+      "headline": "Meia hora por semana muda a conversa com o caixa",
+      "corpo": "Toda semana eu reviso entradas e saídas previstas e ajusto o que precisa. É curto de propósito: rotina longa ninguém mantém.",
+      "itens": [],
+      "legenda": "A revisão semanal do financeiro não precisa tomar a tarde. Com 30 minutos e o fluxo de caixa atualizado, dá para decidir com calma em vez de apagar incêndio. ⚙️",
+      "cta_texto": "",
+      "fontes_dc": [
+        "rotina de 30 minutos por semana para revisar números e ajustar preço",
+        "Rotina curta e semanal, pensada para quem não tem tempo."
+      ]
+    },
+    {
+      "codigo": "SEG4", "data": "2026-11-16", "hora": "20:30", "pilar": "cta", "layout": "cta",
+      "tema_id": "C01", "foto": null, "status": "rascunho",
+      "kicker": "Diagnóstico",
+      "headline": "Quer enxergar o financeiro da sua empresa com clareza?",
+      "corpo": "Começo por uma conversa de diagnóstico: onde o dinheiro entra, onde sai e o que dá para organizar primeiro.",
+      "itens": [],
+      "legenda": "Se fez sentido para você, responda este status com DIAGNÓSTICO e eu te chamo para conversar sobre o financeiro da sua empresa.",
+      "cta_texto": "Responda este status com DIAGNÓSTICO",
+      "fontes_dc": [
+        "Convite para uma conversa de diagnóstico do financeiro da empresa."
+      ]
+    },
+    {
+      "codigo": "TER2", "data": "2026-11-17", "hora": "12:00", "pilar": "dor", "layout": "tipografico_claro",
+      "tema_id": "D04", "foto": null, "status": "rascunho",
+      "kicker": "Diagnóstico honesto",
+      "headline": "Saldo do banco não é fluxo de caixa.",
+      "corpo": "O saldo mostra o que tem hoje. O fluxo de caixa mostra o que vai entrar e sair nas próximas semanas. Decidir só pelo saldo é dirigir olhando o retrovisor.",
+      "itens": [],
+      "legenda": "Quando a decisão de contratar ou comprar sai do saldo do banco, a surpresa vem depois. Hoje você decide pelo saldo ou pelo fluxo de caixa?",
+      "cta_texto": "",
+      "fontes_dc": [
+        "Saldo do banco não é fluxo de caixa.",
+        "Decisões tomadas olhando o saldo do banco, não o fluxo de caixa."
+      ]
+    }
+  ]
+}

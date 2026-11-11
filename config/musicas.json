@@ -1,0 +1,11 @@
+{
+  "_doc": "Trilhas de fundo dos status em vídeo. Fonte: Mixkit (mixkit.co), 'Mixkit Stock Music Free License': uso comercial, sem atribuição obrigatória; proibido redistribuir a música isolada ou registrá-la em Content ID. Jazz instrumental. 'status': proposto até o dono do projeto ouvir e aprovar; só faixas 'aprovado' entram no rodízio.",
+  "fonte_licenca": "https://mixkit.co/license/",
+  "baixado_em": "2026-11-10",
+  "faixas": [
+    {"id": "smooth-like-jazz",      "arquivo": "assets/musica/smooth-like-jazz.mp3",      "mixkit_id": 24,   "titulo": "Smooth Like Jazz",      "duracao_s": 158, "inicio_s": 4, "status": "proposto"},
+    {"id": "lounging-by-moonlight", "arquivo": "assets/musica/lounging-by-moonlight.mp3", "mixkit_id": 40,   "titulo": "Lounging By Moonlight", "duracao_s": 94,  "inicio_s": 4, "status": "proposto"},
+    {"id": "soul-jazz",             "arquivo": "assets/musica/soul-jazz.mp3",             "mixkit_id": 652,  "titulo": "Soul Jazz",             "duracao_s": 134, "inicio_s": 4, "status": "proposto"},
+    {"id": "nostalgic-night",       "arquivo": "assets/musica/nostalgic-night.mp3",       "mixkit_id": 1112, "titulo": "Nostalgic Night",       "duracao_s": 124, "inicio_s": 4, "status": "proposto"}
+  ]
+}

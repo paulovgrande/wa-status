@@ -1,0 +1,31 @@
+{
+  "_doc": "Identidade visual do produto de EXEMPLO (fictício). status 'proposto' => validador I06 bloqueia toda publicação deste produto. Arquivos em produtos/exemplo/marca/.",
+  "status": "aprovado",
+  "logos": {
+    "principal": {
+      "arquivo": "marca/logo-principal.png",
+      "conteudo": "Monograma 'CE' + 'CONSULTORIA EXEMPLO' em dourado, fundo transparente (fictício, gerado para demonstração)",
+      "uso": "fundo ESCURO"
+    }
+  },
+  "decisao_de_layout": "Logo dourado de média luminância: em TODO layout, inclusive o claro, ele fica sobre uma faixa escura.",
+  "paleta": {
+    "ink": "#121417",
+    "grafite": "#1E2228",
+    "ouro": "#C9A45C",
+    "ouro_claro": "#E8D48E",
+    "ouro_escuro": "#7A5A22",
+    "creme": "#F6F3EC",
+    "texto_claro": "#F3EFE6",
+    "texto_suave": "#B9B4A9",
+    "texto_escuro": "#1B1D21"
+  },
+  "fontes": {
+    "titulo": {"familia": "Libre Baskerville", "peso": 700, "arquivo": "assets/fonts/LibreBaskerville-Variable.ttf"},
+    "texto": {"familia": "Inter", "peso": [400, 600], "arquivo": "assets/fonts/Inter-Variable.ttf"}
+  },
+  "assinatura": {
+    "nome": "Ana Exemplo",
+    "linha2": "Consultoria Exemplo"
+  }
+}
